@@ -45,7 +45,7 @@ window.addEventListener("keydown",event=>{
 })
 
 //handling user input and starting game
-export function handleUserInput(event) {
+function handleUserInput(event) {
 	let key = event.key.toUpperCase();
 	if (key === "W" && direction !== "N" && direction !== "S") {
 		direction = "N";
@@ -64,11 +64,10 @@ export function handleUserInput(event) {
 window.addEventListener("keydown", handleUserInput);
 
 //function for restaring game
-function restartGame() {
+function restartGame(snake_position,direction,next_head_position,is_food) {
 	snake_position = [3, 2, 1];
 	direction = "E";
 	next_head_position = 4;
-	score = 0;
 	is_food = false;
 	for (let i = 0; i < 800; i++) {
 		const element = document.getElementById(i.toString());
@@ -79,6 +78,7 @@ function restartGame() {
 		  element.classList.remove("food");
 		}
 	}
+	return[snake_position,direction,next_head_position,is_food]
   }
 
 //the game loop (the recursive main function)
@@ -100,6 +100,6 @@ function main(){
 		}, game_speed);
 	  } 
 	  else {
-		restartGame();
+		[snake_position,direction,next_head_position,is_food] = restartGame(snake_position,direction,next_head_position,is_food);
 	  }
 }

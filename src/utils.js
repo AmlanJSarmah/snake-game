@@ -64,16 +64,16 @@ export function displayFood(snake_position) {
 }
 
 //claculating position of snake
-export function calculateSnakePosition(snakePosition,nextHeadPosition) {
-	let newSnakePosition = [];
-	for (let i = 0; i < snakePosition.length; i++) {
+export function calculateSnakePosition(snake_position,next_head_position) {
+	let new_snake_position = [];
+	for (let i = 0; i < snake_position.length; i++) {
 	  if (i == 0) {
-		const pos = nextHeadPosition - snakePosition[i];
-		newSnakePosition.push(nextHeadPosition);
-		nextHeadPosition = nextHeadPosition + pos;
+		const pos = next_head_position - snake_position[i];
+		new_snake_position.push(next_head_position);
+		next_head_position = next_head_position + pos;
 	  } else {
-		newSnakePosition.push(snakePosition[i - 1]);
+		new_snake_position.push(snake_position[i - 1]);
 	  }
 	}
-	return [nextHeadPosition,newSnakePosition];
+	return [next_head_position,new_snake_position];
   }
