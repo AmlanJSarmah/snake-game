@@ -1,4 +1,4 @@
-import {initialCanvas} from "./utils.js";
+import {initialCanvas,eatFood,displayFood,draw,clearCanvas} from "./utils.js";
 
 //game variables
 let is_playing = false;
@@ -27,7 +27,7 @@ const canvas = document.querySelector('.canvas');
 
 	Since we want boxes to be square so in our CSS we have also specified the heingt to be 15px each.
 	We multiply it with no of row we need here we have chosen 20 rows 
-	So total height of convas is found to be 300px
+	So total height of canvas is found to be 300px
 */
 const no_of_box_in_each_row = 40;
 const no_of_row = 20
@@ -67,5 +67,22 @@ window.addEventListener("keydown", handleUserInput);
 
 //the game loop (the recursive main function)
 function main(){
-
+	if (is_food) {
+		[snake_position,is_food] = eatFood(snake_position[0],snake_position,is_food);
+	  } 
+	  else {
+		displayFood(snake_position);
+		is_food = true;
+	  }
+	  clearCanvas(snake_position);
+	  snake_position = calculateSnakePosition(snake_position);
+	  draw(snake_position);
+	  if (is_playing) {
+		setTimeout(() => {
+		  window.requestAnimationFrame(main);
+		}, game_speed);
+	  } 
+	  else {
+		restartGame();
+	  }
 }
