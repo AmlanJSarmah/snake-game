@@ -17,7 +17,7 @@ export function draw(snakePosition) {
 	  if (element) element.classList.add("snake-body");
 	}
   }
-  
+
   export function clearCanvas(snakePosition) {
 	for (let i = 0; i < snakePosition.length; i++) {
 	  const id = snakePosition[i];
@@ -61,4 +61,19 @@ export function displayFood(snake_position) {
 	const location = locateFood(snake_position);
 	const element = document.getElementById(location.toString())
 	element.classList.add("food");
+}
+
+//claculating position of snake
+export function calculateSnakePosition(snakePosition,nextHeadPosition) {
+	let newSnakePosition = [];
+	for (let i = 0; i < snakePosition.length; i++) {
+	  if (i == 0) {
+		const pos = nextHeadPosition - snakePosition[i];
+		newSnakePosition.push(nextHeadPosition);
+		nextHeadPosition = nextHeadPosition + pos;
+	  } else {
+		newSnakePosition.push(snakePosition[i - 1]);
+	  }
+	}
+	return [nextHeadPosition,newSnakePosition];
   }

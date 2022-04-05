@@ -1,4 +1,4 @@
-import {initialCanvas,eatFood,displayFood,draw,clearCanvas} from "./utils.js";
+import {initialCanvas,eatFood,displayFood,draw,clearCanvas,calculateSnakePosition} from "./utils.js";
 
 //game variables
 let is_playing = false;
@@ -7,7 +7,7 @@ let snake_position = [3,2,1];
 let direction = 'E';
 let next_head_position = 4;
 let is_food = false;
-const game_speed = 500; //in miliseconds
+const game_speed = 300; //in miliseconds
 
 const canvas = document.querySelector('.canvas');
 /*
@@ -40,7 +40,6 @@ window.addEventListener("keydown",event=>{
 	if(!is_playing)
 	{
 		is_playing = true;
-		console.log("Playing now")
 		window.requestAnimationFrame(main);
 	}
 })
@@ -50,10 +49,10 @@ export function handleUserInput(event) {
 	let key = event.key.toUpperCase();
 	if (key === "W" && direction !== "N" && direction !== "S") {
 		direction = "N";
-		next_head_position = snake_position[0] - 10;
+		next_head_position = snake_position[0] - 40;
 	} else if (key === "S" && direction !== "N" && direction !== "S") {
 		direction = "S";
-		next_head_position = snake_position[0] + 10;
+		next_head_position = snake_position[0] + 40;
 	} else if (key === "A" && direction !== "W" && direction !== "E") {
 		direction = "W";
 		 next_head_position = snake_position[0] - 1;
@@ -64,6 +63,23 @@ export function handleUserInput(event) {
 }
 window.addEventListener("keydown", handleUserInput);
 
+//function for restaring game
+function restartGame() {
+	snake_position = [3, 2, 1];
+	direction = "E";
+	next_head_position = 4;
+	score = 0;
+	is_food = false;
+	for (let i = 0; i < 800; i++) {
+		const element = document.getElementById(i.toString());
+		if (element.classList.contains("snake-body")) {
+		  element.classList.remove("snake-body");
+		}
+		if (element.classList.contains("food")) {
+		  element.classList.remove("food");
+		}
+	}
+  }
 
 //the game loop (the recursive main function)
 function main(){
@@ -75,7 +91,8 @@ function main(){
 		is_food = true;
 	  }
 	  clearCanvas(snake_position);
-	  snake_position = calculateSnakePosition(snake_position);
+	  [next_head_position,snake_position]= calculateSnakePosition(snake_position,next_head_position);
+	  console.log(next_head_position,snake_position)
 	  draw(snake_position);
 	  if (is_playing) {
 		setTimeout(() => {
