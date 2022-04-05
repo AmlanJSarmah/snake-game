@@ -1,3 +1,4 @@
+//creating the canvas
 export const initialCanvas = (no_of_box,no_of_row,canvas) => {
 	const total_no_of_box = no_of_box*no_of_row
 
@@ -8,3 +9,4 @@ export const initialCanvas = (no_of_box,no_of_row,canvas) => {
 		canvas.innerHTML +=  `<div id=${i} class="box"></div>`;
 	}
 }
+
