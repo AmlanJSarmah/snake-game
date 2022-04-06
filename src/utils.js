@@ -10,17 +10,17 @@ export const initialCanvas = (no_of_box,no_of_row,canvas) => {
 	}
 }
 
-export function draw(snakePosition) {
-	for (let i = 0; i < snakePosition.length; i++) {
-	  const id = snakePosition[i];
+export function draw(snake_position) {
+	for (let i = 0; i < snake_position.length; i++) {
+	  const id = snake_position[i];
 	  const element = document.getElementById(id.toString());
 	  if (element) element.classList.add("snake-body");
 	}
   }
 
-  export function clearCanvas(snakePosition) {
-	for (let i = 0; i < snakePosition.length; i++) {
-	  const id = snakePosition[i];
+  export function clearCanvas(snake_position) {
+	for (let i = 0; i < snake_position.length; i++) {
+	  const id = snake_position[i];
 	  const element = document.getElementById(id.toString());
 	  if (element) element.classList.remove("snake-body");
 	}
