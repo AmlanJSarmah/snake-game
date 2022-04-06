@@ -27,38 +27,40 @@ export function draw(snakePosition) {
   }
 
 // functions associated with fooding of snake
-export function eatFood(head,snake_position,is_food) {
-	for (let i = 0; i < 800; i++) {
-	  const element = document.getElementById(i.toString());
-	  if (element.classList.contains("food") && i === head) {
+export function eatFood(head,snake_position,is_food,location) {
+	const element = document.getElementById(location.toString());
+	if (element.classList.contains("food") && location === head) {
 		element.classList.remove("food");
 		is_food = false;
+		location = undefined
 		const size = snake_position[1] - snake_position[0];
 		const add = snake_position[snake_position.length - 1] + size;
 		snake_position.push(add);
-	  }
 	}
-	return [snake_position,is_food]
+	return [snake_position,is_food,location]
 }
 
-function locateFood(snake_position) {
+export function locateFood(snake_position) {
 	let foodLocation = 0;
 	let isFound = false;
 	while (!isFound) {
-	  const food = Math.floor(Math.random() * 100);
+	  const food = Math.floor(Math.random() * 800);
+	  let state = true;
 	  for (let i = 0; i < snake_position.length; i++) {
-		if (food !== snake_position[i]) {
-		  isFound = true;
-		  foodLocation = food;
-		  break;
+		if (food === snake_position[i]) {
+			state = false;
+			break;
 		}
+	  }
+	  if(state){
+		isFound = true;
+		foodLocation = food;
 	  }
 	}
 	return foodLocation;
   }
 
-export function displayFood(snake_position) {
-	const location = locateFood(snake_position);
+export function displayFood(location) {
 	const element = document.getElementById(location.toString())
 	element.classList.add("food");
 }

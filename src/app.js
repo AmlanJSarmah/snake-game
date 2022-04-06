@@ -1,4 +1,4 @@
-import {initialCanvas,eatFood,displayFood,draw,clearCanvas,calculateSnakePosition} from "./utils.js";
+import {initialCanvas,eatFood,displayFood,draw,clearCanvas,locateFood,calculateSnakePosition} from "./utils.js";
 
 //game variables
 let is_playing = false;
@@ -7,6 +7,7 @@ let snake_position = [3,2,1];
 let direction = 'E';
 let next_head_position = 4;
 let is_food = false;
+let food_location = undefined
 const game_speed = 300; //in miliseconds
 
 const canvas = document.querySelector('.canvas');
@@ -84,15 +85,16 @@ function restartGame(snake_position,direction,next_head_position,is_food) {
 //the game loop (the recursive main function)
 function main(){
 	if (is_food) {
-		[snake_position,is_food] = eatFood(snake_position[0],snake_position,is_food);
+		[snake_position,is_food,food_location] = eatFood(snake_position[0],snake_position,is_food,food_location);
 	  } 
 	  else {
-		displayFood(snake_position);
+		food_location = locateFood(snake_position)
+		displayFood(food_location);
 		is_food = true;
 	  }
 	  clearCanvas(snake_position);
 	  [next_head_position,snake_position]= calculateSnakePosition(snake_position,next_head_position);
-	  console.log(next_head_position,snake_position)
+	  console.log(next_head_position,snake_position,is_food,food_location)
 	  draw(snake_position);
 	  if (is_playing) {
 		setTimeout(() => {
