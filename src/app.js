@@ -8,7 +8,7 @@ let direction = 'E';
 let next_head_position = 4;
 let is_food = false;
 let food_location = undefined
-const game_speed = 300; //in miliseconds
+const game_speed = 200; //in miliseconds
 
 const canvas = document.querySelector('.canvas');
 /*
@@ -99,7 +99,7 @@ function main(){
 	if (is_playing) {
 		setTimeout(() => {
 		  window.requestAnimationFrame(main);
-		}, 200);
+		}, game_speed);
 	} 
 	else {
 		[snake_position,direction,next_head_position,is_food] = restartGame(food_location,snake_position,direction,next_head_position,is_food);
