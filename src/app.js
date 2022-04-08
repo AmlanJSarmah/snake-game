@@ -1,4 +1,4 @@
-import {initialCanvas,eatFood,displayFood,draw,clearCanvas,locateFood,calculateSnakePosition} from "./utils.js";
+import {initialCanvas,eatFood,displayFood,draw,clearCanvas,locateFood,checkIsGameOver,calculateSnakePosition} from "./utils.js";
 
 //game variables
 let is_playing = false;
@@ -65,43 +65,43 @@ function handleUserInput(event) {
 window.addEventListener("keydown", handleUserInput);
 
 //function for restaring game
-function restartGame(snake_position,direction,next_head_position,is_food) {
+function restartGame(food_location,snake_position,direction,next_head_position,is_food) {
+	if(food_location){
+		let element = document.getElementById(food_location)
+		element.classList.remove("food")
+	}
+	for(let i=0;i<snake_position.length;i++)
+	{
+		let element = document.getElementById(snake_position[i])
+		element.classList.remove("snake-body")
+	}
 	snake_position = [3, 2, 1];
 	direction = "E";
 	next_head_position = 4;
 	is_food = false;
-	for (let i = 0; i < 800; i++) {
-		const element = document.getElementById(i.toString());
-		if (element.classList.contains("snake-body")) {
-		  element.classList.remove("snake-body");
-		}
-		if (element.classList.contains("food")) {
-		  element.classList.remove("food");
-		}
-	}
 	return[snake_position,direction,next_head_position,is_food]
   }
 
 //the game loop (the recursive main function)
 function main(){
+	[snake_position,is_playing] = checkIsGameOver(snake_position)
 	if (is_food) {
 		[snake_position,is_food,food_location] = eatFood(snake_position[0],snake_position,is_food,food_location);
 	  } 
-	  else {
+	else {
 		food_location = locateFood(snake_position)
 		displayFood(food_location);
 		is_food = true;
-	  }
-	  clearCanvas(snake_position);
-	  [next_head_position,snake_position]= calculateSnakePosition(snake_position,next_head_position);
-	  console.log(next_head_position,snake_position,is_food,food_location)
-	  draw(snake_position);
-	  if (is_playing) {
+	}
+	clearCanvas(snake_position);
+	[next_head_position,snake_position]= calculateSnakePosition(snake_position,next_head_position);
+	draw(snake_position);
+	if (is_playing) {
 		setTimeout(() => {
 		  window.requestAnimationFrame(main);
-		}, game_speed);
-	  } 
-	  else {
-		[snake_position,direction,next_head_position,is_food] = restartGame(snake_position,direction,next_head_position,is_food);
-	  }
+		}, 200);
+	} 
+	else {
+		[snake_position,direction,next_head_position,is_food] = restartGame(food_location,snake_position,direction,next_head_position,is_food);
+	}
 }

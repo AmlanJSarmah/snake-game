@@ -26,6 +26,27 @@ export function draw(snake_position) {
 	}
   }
 
+//checking if game is over
+export function checkIsGameOver(snake_position)
+{
+	//for checking if the game is over we must check 2 things
+	// 1. if snake bites itself
+	// 2. if snake's head collided with the walls
+	let is_playing = true;
+	const snake_head = snake_position[0]
+	//checking condition 1
+	// P.S. : We are iterating from i = 1 as 0 is the head of the snake and from 1 is where the bosy of snake begins so if snakes head collide with it's own body then it is dead.
+	for(let i=1;i<snake_position.length;i++)
+	{
+		if(snake_position[i] === snake_head){
+			is_playing = false;
+			break;
+		}
+	}
+	return [snake_position,is_playing]
+}
+
+
 // functions associated with fooding of snake
 export function eatFood(head,snake_position,is_food,location) {
 	const element = document.getElementById(location.toString());
