@@ -42,33 +42,22 @@ export function checkIsGameOver(snake_position, direction) {
     }
   }
   //checking condition 2
-  //   const pos_north_south = [];
-  //   for (let i = 0; i < 2; i++) {
-  //     const state = i;
-  //     for (let j = 0; j < 40; j++) {
-  //       if (state === 1) pos_north_south.push(760 + j);
-  //       else pos_north_south.push(j);
-  //     }
-  //   }
-  //   for (let i = 0; i < pos_north_south.length; i++) {
-  //     if (
-  //       snake_head === pos_north_south[i] &&
-  //       (direction === "N" || direction === "S")
-  //     )
-  //       is_playing = false;
-  //   }
-  //   const pos_east_west = [
-  //     0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600,
-  //     640, 680, 720, 760, 39, 79, 119, 159, 199, 239, 279, 319, 359, 399, 439,
-  //     479, 519, 559, 599, 639, 679, 719, 759, 799,
-  //   ];
-  //   for (let i = 0; i < pos_east_west.length; i++) {
-  //     if (
-  //       (snake_head === pos_east_west[i] && direction === "E") ||
-  //       direction === "W"
-  //     )
-  //       is_playing = false;
-  //   }
+  const pos_north_south = [];
+  for (let i = 0; i < 2; i++) {
+    const state = i;
+    for (let j = 0; j < 40; j++) {
+      if (state === 1) pos_north_south.push(760 + j);
+      else pos_north_south.push(j);
+    }
+  }
+  const pos_east_west = [];
+  for (let i = 0; i < 2; i++) {
+    const state = i;
+    for (let j = 0; j < 20; j++) {
+      if (state == 1) pos_east_west.push(39 + j * 40);
+      else pos_east_west.push(j * 40);
+    }
+  }
   return [snake_position, is_playing];
 }
 
