@@ -42,20 +42,26 @@ export function checkIsGameOver(snake_position, direction) {
     }
   }
   //checking condition 2
-  const pos_north_south = [];
-  for (let i = 0; i < 2; i++) {
-    const state = i;
-    for (let j = 0; j < 40; j++) {
-      if (state === 1) pos_north_south.push(760 + j);
-      else pos_north_south.push(j);
-    }
-  }
-  const pos_east_west = [];
+  // 2.1 if snake head goes out of screen
+  const element = document.getElementById(snake_head.toString());
+  if (!element) is_playing = false;
+  //2.2 if snake head collide with other sides of canvas
+  const pos_east = [];
+  const pos_west = [];
   for (let i = 0; i < 2; i++) {
     const state = i;
     for (let j = 0; j < 20; j++) {
-      if (state == 1) pos_east_west.push(39 + j * 40);
-      else pos_east_west.push(j * 40);
+      if (state == 1) pos_east.push(39 + j * 40);
+      else pos_west.push(j * 40);
+    }
+  }
+  if (direction == "E") {
+    for (let i = 0; i < pos_east.length; i++) {
+      if (snake_head === pos_east[i]) is_playing = false;
+    }
+  } else {
+    for (let i = 0; i < pos_west.length; i++) {
+      if (snake_head == pos_west[i]) is_playing = false;
     }
   }
   return [snake_position, is_playing];
