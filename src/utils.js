@@ -59,7 +59,7 @@ export function checkIsGameOver(snake_position, direction) {
     for (let i = 0; i < pos_east.length; i++) {
       if (snake_head === pos_east[i]) is_playing = false;
     }
-  } else {
+  } else if (direction == "W") {
     for (let i = 0; i < pos_west.length; i++) {
       if (snake_head == pos_west[i]) is_playing = false;
     }
