@@ -7,7 +7,7 @@ A simple snake game created with vanilla Javascript .
 No external dependencies is being used.
 
 ## Screenshots
-![Screenshot (16)](https://user-images.githubusercontent.com/99042379/161749672-e28b2126-6db5-422f-850c-3a151994533a.png)
+![Screenshot (22)](https://user-images.githubusercontent.com/99042379/164880542-9b2d8d33-b3e6-41b2-a06f-d38abab13ed4.png)
 
 ## Installation
 
